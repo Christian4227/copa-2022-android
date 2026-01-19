@@ -2,4 +2,5 @@
     <string name="app_name">Copa 2022</string>
     <string name="initial_date_cq">20 de novembro</string>
     <string name="final_date_cq">18 de dezembro</string>
+    <string name="alt_image_configuracoes">Configurações</string>
 </resources>

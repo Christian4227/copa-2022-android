@@ -30,48 +30,53 @@ fun Header() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(0.dp)
             .background(color = variables.primaryColor),
-        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.Bottom
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 12.dp, top = 16.dp, end = 12.dp, bottom = 12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Bottom,
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_logo_copa_mundo_qatar_2022),
-                modifier = Modifier.size(40.dp),
-                contentDescription = "image description",
-                contentScale = ContentScale.FillBounds
-            )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.Start),
                 verticalAlignment = Alignment.Bottom,
             ) {
-                Text(
-                    text = "2022",
-                    style = TextStyle(
-                        fontSize = 24.sp,
-                        fontFamily = FontFamily(variables.fontBoldApp),
-                        color = variables.primaryColor2,
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
+                    verticalAlignment = Alignment.Bottom,
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.iv_logo_catar_2022),
+                        modifier = Modifier
+                            .size(40.dp),
+                        contentDescription = "image description",
+                        contentScale = ContentScale.FillBounds
                     )
-                )
+                    Text(
+                        text = "2022", style = TextStyle(
+                            fontSize = 24.sp,
+                            fontFamily = FontFamily(variables.fontBoldApp),
+                            color = variables.primaryColor2,
+                        )
+                    )
+                }
                 Column(
                     verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.Top),
                     horizontalAlignment = Alignment.Start,
                 ) {
                     Text(
-                        text = stringResource(R.string.initial_date_cq),
-                        style = TextStyle(
+                        text = stringResource(R.string.initial_date_cq), style = TextStyle(
                             fontSize = 14.sp,
                             fontFamily = FontFamily(variables.fontRegularApp),
                             color = variables.primaryColor2,
                         )
                     )
                     Text(
-                        text = stringResource(R.string.final_date_cq),
-                        style = TextStyle(
+                        text = stringResource(R.string.final_date_cq), style = TextStyle(
                             fontSize = 14.sp,
                             fontFamily = FontFamily(variables.fontRegularApp),
                             color = variables.primaryColor2,
@@ -79,18 +84,18 @@ fun Header() {
                     )
                 }
             }
+            Image(
+                painter = painterResource(id = R.drawable.iv_configuracoes),
+                modifier = Modifier.size(32.dp),
+                contentDescription = stringResource(R.string.alt_image_configuracoes),
+                contentScale = ContentScale.FillBounds
+            )
         }
-        Image(
-            painter = painterResource(id = R.drawable.ic_configuracoes),
-            modifier = Modifier.size(12.dp),
-            contentDescription = "image description",
-            contentScale = ContentScale.FillBounds
-        )
     }
 }
 
 @Preview
 @Composable
 fun HeaderPreview() {
-
+    Header()
 }
