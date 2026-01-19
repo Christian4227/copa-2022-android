@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import me.dio.copa.catar.ui.theme.Copa2022Theme
+import me.dio.copa.catar.ui.components.Header
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                     Greeting("Android")
+                    Header()
                 }
             }
         }
@@ -42,3 +43,4 @@ fun DefaultPreview() {
         Greeting("Android")
     }
 }
+

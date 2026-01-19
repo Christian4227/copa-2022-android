@@ -1,17 +1,20 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id "com.android.application"
     id "org.jetbrains.kotlin.android"
     id "kotlin-kapt"
     id "dagger.hilt.android.plugin"
+    id 'org.jetbrains.kotlin.plugin.compose'
 }
 
 android {
-    compileSdk 33
+    compileSdk = 35
 
     defaultConfig {
         applicationId "me.dio.copa.catar"
         minSdk 26
-        targetSdk 33
+        targetSdk = 33
         versionCode 1
         versionName "1.0"
 
@@ -29,13 +32,15 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_21)
+        }
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
-    }
 
     buildFeatures {
         compose true
@@ -66,11 +71,12 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
     implementation "androidx.activity:activity-compose:1.6.0"
+    implementation 'androidx.compose.ui:ui-android:1.10.1'
     testImplementation "junit:junit:4.13.2"
 
     // hilt
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-compiler:2.44"
+    implementation "com.google.dagger:hilt-android:2.58"
+    kapt "com.google.dagger:hilt-compiler:2.58"
 
     // coil
     implementation "io.coil-kt:coil-compose:2.2.2"

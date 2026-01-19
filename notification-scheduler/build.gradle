@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id "com.android.library"
     id "org.jetbrains.kotlin.android"
@@ -6,11 +8,11 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk = 35
 
     defaultConfig {
         minSdk 26
-        targetSdk 33
+        targetSdk = 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -24,13 +26,15 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_21)
+        }
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
-    }
     namespace 'me.dio.copa.catar.notification.scheduler'
 }
 
@@ -40,6 +44,6 @@ dependencies {
 
     implementation "androidx.work:work-runtime-ktx:2.7.1"
 
-    kapt("com.google.dagger:dagger-compiler:2.44")
-    implementation("com.google.dagger:dagger:2.44")
+    kapt("com.google.dagger:dagger-compiler:2.58")
+    implementation("com.google.dagger:dagger:2.58")
 }

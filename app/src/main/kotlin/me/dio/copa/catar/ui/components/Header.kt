@@ -1,0 +1,96 @@
+package me.dio.copa.catar.ui.components
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import me.dio.copa.catar.R
+import me.dio.copa.catar.utils.Variables
+
+@Composable
+fun Header() {
+    val variables: Variables = Variables()
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .background(color = variables.primaryColor),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.Bottom
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.Start),
+            verticalAlignment = Alignment.Bottom,
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_logo_copa_mundo_qatar_2022),
+                modifier = Modifier.size(40.dp),
+                contentDescription = "image description",
+                contentScale = ContentScale.FillBounds
+            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.Start),
+                verticalAlignment = Alignment.Bottom,
+            ) {
+                Text(
+                    text = "2022",
+                    style = TextStyle(
+                        fontSize = 24.sp,
+                        fontFamily = FontFamily(variables.fontBoldApp),
+                        color = variables.primaryColor2,
+                    )
+                )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.Top),
+                    horizontalAlignment = Alignment.Start,
+                ) {
+                    Text(
+                        text = stringResource(R.string.initial_date_cq),
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            fontFamily = FontFamily(variables.fontRegularApp),
+                            color = variables.primaryColor2,
+                        )
+                    )
+                    Text(
+                        text = stringResource(R.string.final_date_cq),
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            fontFamily = FontFamily(variables.fontRegularApp),
+                            color = variables.primaryColor2,
+                        )
+                    )
+                }
+            }
+        }
+        Image(
+            painter = painterResource(id = R.drawable.ic_configuracoes),
+            modifier = Modifier.size(12.dp),
+            contentDescription = "image description",
+            contentScale = ContentScale.FillBounds
+        )
+    }
+}
+
+@Preview
+@Composable
+fun HeaderPreview() {
+
+}
