@@ -2,6 +2,13 @@
 <resources>
 
     <style name="Theme.Copa2022" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/purple_700</item>
+        <item name="android:statusBarColor">@color/primary_color</item>
     </style>
+
+    <style name="Theme.Copa2022.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/primary_color</item>
+        <item name="android:statusBarColor">@color/primary_color</item>
+        <item name="postSplashScreenTheme">@style/Theme.Copa2022</item>
+    </style>
+
 </resources>

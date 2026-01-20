@@ -23,13 +23,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import me.dio.copa.catar.R
 import me.dio.copa.catar.utils.Variables
 
 @Composable
-fun Header(onSettingsClick: () -> Unit) {
-    val variables: Variables = Variables()
+fun HeaderPages(
+    title: String = ""
+) {
+    val variables = Variables()
 
     Row(
         modifier = Modifier
@@ -61,28 +65,9 @@ fun Header(onSettingsClick: () -> Unit) {
                         contentScale = ContentScale.FillBounds
                     )
                     Text(
-                        text = "2022", style = TextStyle(
+                        text = title, style = TextStyle(
                             fontSize = 24.sp,
                             fontFamily = FontFamily(variables.fontBoldApp),
-                            color = variables.primaryColor2,
-                        )
-                    )
-                }
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.Top),
-                    horizontalAlignment = Alignment.Start,
-                ) {
-                    Text(
-                        text = stringResource(R.string.initial_date_cq), style = TextStyle(
-                            fontSize = 14.sp,
-                            fontFamily = FontFamily(variables.fontRegularApp),
-                            color = variables.primaryColor2,
-                        )
-                    )
-                    Text(
-                        text = stringResource(R.string.final_date_cq), style = TextStyle(
-                            fontSize = 14.sp,
-                            fontFamily = FontFamily(variables.fontRegularApp),
                             color = variables.primaryColor2,
                         )
                     )
@@ -91,10 +76,10 @@ fun Header(onSettingsClick: () -> Unit) {
             Image(
                 painter = painterResource(id = R.drawable.iv_configuracoes),
                 modifier = Modifier
-                    .size(32.dp)
-                    .clickable {
-                        onSettingsClick()
-                    },
+                    .size(32.dp),
+//                    .clickable {
+//                        navController.navigate("settings")
+//                    },
                 contentDescription = stringResource(R.string.text_settings),
                 contentScale = ContentScale.FillBounds
             )
@@ -104,6 +89,9 @@ fun Header(onSettingsClick: () -> Unit) {
 
 @Preview
 @Composable
-fun HeaderPreview() {
-    Header(onSettingsClick = { })
+fun HeaderPagesPreview() {
+    HeaderPages(
+        "Página de Teste"
+//        navController = NavController(LocalContext.current)
+    )
 }

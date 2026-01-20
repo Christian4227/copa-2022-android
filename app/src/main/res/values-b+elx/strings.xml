@@ -3,5 +3,6 @@
     <string name="app_name">Copa 2022</string>
     <string name="initial_date_cq">november 20</string>
     <string name="final_date_cq">december 18</string>
-    <string name="alt_image_configuracoes">Settings</string>
+    <string name="text_settings">Settings</string>
+    <string name="logo_copa_2022">2022 World Cup logo</string>
 </resources>
