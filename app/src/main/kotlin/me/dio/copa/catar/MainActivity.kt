@@ -53,7 +53,11 @@ class MainActivity : ComponentActivity() {
                                 onSettingsClick = { navController.navigate("settings") }
                             )
                         }
-                        composable("settings") { Settings() }
+                        composable("settings") {
+                            Settings(
+                                onBackClick = { navController.popBackStack() }
+                            )
+                        }
                     }
                 }
             }

@@ -1,6 +1,9 @@
 package me.dio.copa.catar.ui.screens.settings
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,9 +16,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -29,9 +37,17 @@ import me.dio.copa.catar.R
 import me.dio.copa.catar.ui.components.CustomSwitch
 import me.dio.copa.catar.ui.components.HeaderPages
 import me.dio.copa.catar.ui.theme.Copa2022Theme
+import me.dio.copa.catar.worker.NotificationWorker
 
 @Composable
-fun Settings() {
+fun Settings(onBackClick: () -> Unit) {
+    val context = LocalContext.current
+    var notificationsEnabled by remember {
+        mutableStateOf(
+            false
+        )
+    }
+
     Copa2022Theme(
         darkTheme = false
     ) {
@@ -67,13 +83,14 @@ fun Settings() {
                         Image(
                             painter = painterResource(id = R.drawable.ic_arrow_left),
                             modifier = Modifier
-                                .size(40.dp),
+                                .size(40.dp)
+                                .clickable { onBackClick() },
                             contentDescription = stringResource(R.string.back_button),
                             contentScale = ContentScale.FillBounds
                         )
                         Text(
                             text = stringResource(R.string.back_button), style = TextStyle(
-                                fontSize = 24.sp,
+                                fontSize = 20.sp,
                                 fontFamily = FontFamily(Font(R.font.roboto_semibold)),
                                 color = colorResource(R.color.text_body),
                             )
@@ -81,6 +98,8 @@ fun Settings() {
                     }
                     // Corpo da tela
                     Column(
+                        modifier = Modifier
+                            .padding(start = 12.dp, top = 0.dp, end = 12.dp, bottom = 0.dp),
                         verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.Top),
                         horizontalAlignment = Alignment.Start,
                     ) {
@@ -88,11 +107,20 @@ fun Settings() {
                             horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            CustomSwitch(checked = false, onCheckedChange = {})
+                            CustomSwitch(checked = notificationsEnabled,
+                                onCheckedChange = { isEnabled ->
+                                    notificationsEnabled = isEnabled
+                                    if (isEnabled) {
+                                        NotificationWorker.start(context)
+                                    } else {
+                                        NotificationWorker.stop(context)
+                                    }
+                                }
+                            )
                             Text(
                                 text = stringResource(R.string.text_match_own_country),
                                 style = TextStyle(
-                                    fontSize = 24.sp,
+                                    fontSize = 16.sp,
                                     fontFamily = FontFamily(Font(R.font.roboto_regular)),
                                     color = colorResource(R.color.text_body),
                                 )
@@ -108,5 +136,5 @@ fun Settings() {
 @Preview
 @Composable
 fun SettingsPreview() {
-    Settings()
+    Settings(onBackClick = {})
 }

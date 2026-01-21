@@ -24,7 +24,7 @@ import me.dio.copa.catar.R
 
 @Composable
 fun CustomSwitch(
-    checked: Boolean,
+    checked: Boolean = false,
     onCheckedChange: (Boolean) -> Unit
 ) {
     val width = 56.dp
