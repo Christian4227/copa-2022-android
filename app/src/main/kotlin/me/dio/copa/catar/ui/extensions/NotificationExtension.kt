@@ -1,5 +1,6 @@
 package me.dio.copa.catar.ui.extensions
 
+import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -8,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import me.dio.copa.catar.R
@@ -16,10 +18,12 @@ import me.dio.copa.catar.R
 private const val NOTIFICATION_ID = 1
 private const val CHANNEL_ID = "new_channel_video"
 
+@RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
 fun Context.showFootballNotifications() {
     showNotification()
 }
 
+@RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
 private fun Context.showNotification() {
     createNotificationChannel()
 
@@ -34,9 +38,7 @@ private fun Context.showNotification() {
 }
 
 private fun Context.createNotificationChannel() {
-    val name = getString(
-        1
-    )
+    val name = getString(R.string.app_name)
     val importance = NotificationManager.IMPORTANCE_HIGH
     val channel = NotificationChannel(CHANNEL_ID, name, importance)
 
