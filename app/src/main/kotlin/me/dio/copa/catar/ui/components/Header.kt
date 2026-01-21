@@ -14,28 +14,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import me.dio.copa.catar.R
-import me.dio.copa.catar.utils.Variables
 
 @Composable
 fun Header(onSettingsClick: () -> Unit) {
-    val variables: Variables = Variables()
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(0.dp)
-            .background(color = variables.primaryColor),
+            .background(color = colorResource(R.color.primary_color)),
         verticalAlignment = Alignment.Bottom
     ) {
         Row(
@@ -63,8 +60,8 @@ fun Header(onSettingsClick: () -> Unit) {
                     Text(
                         text = "2022", style = TextStyle(
                             fontSize = 24.sp,
-                            fontFamily = FontFamily(variables.fontBoldApp),
-                            color = variables.primaryColor2,
+                            fontFamily = FontFamily(Font(R.font.tomorrow_bold)),
+                            color = colorResource(R.color.primary_color_2),
                         )
                     )
                 }
@@ -75,15 +72,15 @@ fun Header(onSettingsClick: () -> Unit) {
                     Text(
                         text = stringResource(R.string.initial_date_cq), style = TextStyle(
                             fontSize = 14.sp,
-                            fontFamily = FontFamily(variables.fontRegularApp),
-                            color = variables.primaryColor2,
+                            fontFamily = FontFamily(Font(R.font.tomorrow_regular)),
+                            color = colorResource(R.color.primary_color_2),
                         )
                     )
                     Text(
                         text = stringResource(R.string.final_date_cq), style = TextStyle(
                             fontSize = 14.sp,
-                            fontFamily = FontFamily(variables.fontRegularApp),
-                            color = variables.primaryColor2,
+                            fontFamily = FontFamily(Font(R.font.tomorrow_regular)),
+                            color = colorResource(R.color.primary_color_2),
                         )
                     )
                 }

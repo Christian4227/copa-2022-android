@@ -3,6 +3,7 @@
 
     <style name="Theme.Copa2022" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/primary_color</item>
+        <item name="android:windowBackground">@color/background</item>
     </style>
 
     <style name="Theme.Copa2022.Splash" parent="Theme.SplashScreen">

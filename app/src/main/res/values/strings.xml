@@ -4,4 +4,6 @@
     <string name="final_date_cq">18 de dezembro</string>
     <string name="text_settings">Configurações</string>
     <string name="logo_copa_2022">Logo da Copa do Mundo de 2022</string>
+    <string name="back_button">Voltar</string>
+    <string name="text_match_own_country">Jogos do seu país</string>
 </resources>

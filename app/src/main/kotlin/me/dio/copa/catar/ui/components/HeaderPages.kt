@@ -2,9 +2,7 @@ package me.dio.copa.catar.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,32 +12,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import me.dio.copa.catar.R
-import me.dio.copa.catar.utils.Variables
 
 @Composable
 fun HeaderPages(
     title: String = ""
 ) {
-    val variables = Variables()
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(0.dp)
-            .background(color = variables.primaryColor),
+            .background(color = colorResource(R.color.primary_color)),
         verticalAlignment = Alignment.Bottom
     ) {
         Row(
@@ -67,8 +60,8 @@ fun HeaderPages(
                     Text(
                         text = title, style = TextStyle(
                             fontSize = 24.sp,
-                            fontFamily = FontFamily(variables.fontBoldApp),
-                            color = variables.primaryColor2,
+                            fontFamily = FontFamily(Font(R.font.tomorrow_bold)),
+                            color = colorResource(R.color.primary_color_2),
                         )
                     )
                 }
@@ -92,6 +85,5 @@ fun HeaderPages(
 fun HeaderPagesPreview() {
     HeaderPages(
         "Página de Teste"
-//        navController = NavController(LocalContext.current)
     )
 }
