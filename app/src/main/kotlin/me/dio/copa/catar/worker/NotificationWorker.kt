@@ -1,6 +1,8 @@
 package me.dio.copa.catar.worker
 
+import android.Manifest
 import android.content.Context
+import androidx.annotation.RequiresPermission
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
@@ -12,6 +14,7 @@ import java.util.concurrent.TimeUnit
 class NotificationWorker(context: Context, workerParams: WorkerParameters) :
     Worker(context, workerParams) {
 
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     override fun doWork(): Result {
         // O contexto aqui já é fornecido pelo Worker
         applicationContext.showFootballNotifications()
