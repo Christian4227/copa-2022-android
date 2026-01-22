@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -99,32 +100,54 @@ fun Settings(onBackClick: () -> Unit) {
                     // Corpo da tela
                     Column(
                         modifier = Modifier
+                            .fillMaxWidth()
                             .padding(start = 12.dp, top = 0.dp, end = 12.dp, bottom = 0.dp),
                         verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.Top),
                         horizontalAlignment = Alignment.Start,
                     ) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
-                            verticalAlignment = Alignment.CenterVertically,
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(0.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top),
+                            horizontalAlignment = Alignment.Start,
                         ) {
-                            CustomSwitch(checked = notificationsEnabled,
-                                onCheckedChange = { isEnabled ->
-                                    notificationsEnabled = isEnabled
-                                    if (isEnabled) {
-                                        NotificationWorker.start(context)
-                                    } else {
-                                        NotificationWorker.stop(context)
-                                    }
-                                }
-                            )
                             Text(
-                                text = stringResource(R.string.text_match_own_country),
-                                style = TextStyle(
-                                    fontSize = 16.sp,
-                                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                                    color = colorResource(R.color.text_body),
+                                text = stringResource(R.string.text_notifications_copa),
+                                style = MaterialTheme.typography.h2.copy(
+                                    fontSize = 32.sp,
+                                    fontFamily = FontFamily(Font(R.font.roboto_bold)),
+                                    color = colorResource(R.color.text_body)
                                 )
                             )
+                            // Switch de notificações
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(
+                                    12.dp,
+                                    Alignment.Start
+                                ),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                CustomSwitch(
+                                    checked = notificationsEnabled,
+                                    onCheckedChange = { isEnabled ->
+                                        notificationsEnabled = isEnabled
+                                        if (isEnabled) {
+                                            NotificationWorker.start(context)
+                                        } else {
+                                            NotificationWorker.stop(context)
+                                        }
+                                    }
+                                )
+                                Text(
+                                    text = stringResource(R.string.text_match_own_country),
+                                    style = TextStyle(
+                                        fontSize = 16.sp,
+                                        fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                                        color = colorResource(R.color.text_body),
+                                    )
+                                )
+                            }
                         }
                     }
                 }
