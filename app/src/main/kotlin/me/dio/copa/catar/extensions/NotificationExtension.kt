@@ -1,22 +1,30 @@
-package me.dio.copa.catar.ui.extensions
+package me.dio.copa.catar.extensions
 
 import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.graphics.Bitmap
-import android.net.Uri
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import me.dio.copa.catar.R
-
 
 private const val NOTIFICATION_ID = 1
 private const val CHANNEL_ID = "new_channel_video"
+
+fun Context.hasNotificationPermission(): Boolean {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        ContextCompat.checkSelfPermission(
+            this, Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+    } else {
+        true
+    }
+}
 
 @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
 fun Context.showFootballNotifications() {
@@ -47,30 +55,16 @@ private fun Context.createNotificationChannel() {
 
 }
 
-private fun Context.getNotification(
-): Notification {
-
+private fun Context.getNotification(): Notification {
     val notification = NotificationCompat
         .Builder(this, CHANNEL_ID)
         .setSmallIcon(R.drawable.iv_logo_catar_2022)
-        .setContentTitle("teste")
-        .setContentText("Teste")
+        .setContentTitle("Copa 2022")
+        .setContentText("Acompanhe os jogos do Brasil!")
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setCategory(NotificationCompat.CATEGORY_RECOMMENDATION)
-//        .setContentIntent(null)
         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
         .setAutoCancel(true)
 
     return notification.build()
 }
-
-//private fun Context.getPendingIntent(): PendingIntent {
-//    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
-//
-//    return PendingIntent.getActivity(
-//        this,
-//        0,
-//        intent,
-//        PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-//    )
-//}

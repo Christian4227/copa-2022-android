@@ -1,4 +1,4 @@
-package me.dio.copa.catar.worker
+package me.dio.copa.catar.data.worker
 
 import android.Manifest
 import android.content.Context
@@ -8,7 +8,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import me.dio.copa.catar.ui.extensions.showFootballNotifications
+import me.dio.copa.catar.extensions.showFootballNotifications
 import java.util.concurrent.TimeUnit
 
 class NotificationWorker(context: Context, workerParams: WorkerParameters) :
@@ -16,11 +16,7 @@ class NotificationWorker(context: Context, workerParams: WorkerParameters) :
 
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     override fun doWork(): Result {
-        // O contexto aqui já é fornecido pelo Worker
         applicationContext.showFootballNotifications()
-
-        // Se você quiser que ele agende a PRÓXIMA notificação logo após esta:
-        // NotificationWorker.start(applicationContext)
 
         return Result.success()
     }
@@ -33,7 +29,7 @@ class NotificationWorker(context: Context, workerParams: WorkerParameters) :
                 .setInitialDelay(2, TimeUnit.MINUTES) // Exemplo: atraso inicial
                 .build()
 
-            WorkManager.getInstance(context).enqueueUniqueWork(
+            WorkManager.Companion.getInstance(context).enqueueUniqueWork(
                 WORKER_NAME,
                 ExistingWorkPolicy.REPLACE, // Mude para REPLACE para testar se ele dispara agora
                 request
@@ -41,7 +37,7 @@ class NotificationWorker(context: Context, workerParams: WorkerParameters) :
         }
 
         fun stop(context: Context) {
-            WorkManager.getInstance(context).cancelUniqueWork(WORKER_NAME)
+            WorkManager.Companion.getInstance(context).cancelUniqueWork(WORKER_NAME)
         }
     }
 }

@@ -1,10 +1,8 @@
-package me.dio.copa.catar.ui.components
+package me.dio.copa.catar.ui.components.headers
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,7 +24,9 @@ import androidx.compose.ui.unit.sp
 import me.dio.copa.catar.R
 
 @Composable
-fun Header(onSettingsClick: () -> Unit) {
+fun HeaderPages(
+    title: String = ""
+) {
 
     Row(
         modifier = Modifier
@@ -58,28 +58,9 @@ fun Header(onSettingsClick: () -> Unit) {
                         contentScale = ContentScale.FillBounds
                     )
                     Text(
-                        text = "2022", style = TextStyle(
+                        text = title, style = TextStyle(
                             fontSize = 24.sp,
                             fontFamily = FontFamily(Font(R.font.tomorrow_bold)),
-                            color = colorResource(R.color.primary_color_2),
-                        )
-                    )
-                }
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.Top),
-                    horizontalAlignment = Alignment.Start,
-                ) {
-                    Text(
-                        text = stringResource(R.string.initial_date_cq), style = TextStyle(
-                            fontSize = 14.sp,
-                            fontFamily = FontFamily(Font(R.font.tomorrow_regular)),
-                            color = colorResource(R.color.primary_color_2),
-                        )
-                    )
-                    Text(
-                        text = stringResource(R.string.final_date_cq), style = TextStyle(
-                            fontSize = 14.sp,
-                            fontFamily = FontFamily(Font(R.font.tomorrow_regular)),
                             color = colorResource(R.color.primary_color_2),
                         )
                     )
@@ -88,10 +69,10 @@ fun Header(onSettingsClick: () -> Unit) {
             Image(
                 painter = painterResource(id = R.drawable.iv_configuracoes),
                 modifier = Modifier
-                    .size(32.dp)
-                    .clickable {
-                        onSettingsClick()
-                    },
+                    .size(32.dp),
+//                    .clickable {
+//                        navController.navigate("settings")
+//                    },
                 contentDescription = stringResource(R.string.text_settings),
                 contentScale = ContentScale.FillBounds
             )
@@ -101,6 +82,8 @@ fun Header(onSettingsClick: () -> Unit) {
 
 @Preview
 @Composable
-fun HeaderPreview() {
-    Header(onSettingsClick = { })
+fun HeaderPagesPreview() {
+    HeaderPages(
+        "Página de Teste"
+    )
 }

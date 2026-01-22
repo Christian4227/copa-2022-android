@@ -1,4 +1,4 @@
-package me.dio.copa.catar.ui.components
+package me.dio.copa.catar.ui.components.switches
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
