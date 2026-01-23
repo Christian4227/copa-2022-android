@@ -8,4 +8,5 @@
     <string name="back_button">Back</string>
     <string name="text_match_own_country">Your footabll matches</string>
     <string name="text_notifications_copa">Cup Notifications</string>
+    <string name="text_conf_notification_permission_denied">Open the settings to allow notifications</string>
 </resources>

@@ -25,8 +25,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import me.dio.copa.catar.ui.components.headers.Header
 import me.dio.copa.catar.extensions.hasNotificationPermission
+import me.dio.copa.catar.ui.components.headers.Header
 import me.dio.copa.catar.ui.theme.Copa2022Theme
 import me.dio.copa.catar.ui.screens.settings.Settings
 
@@ -34,10 +34,17 @@ import me.dio.copa.catar.ui.screens.settings.Settings
 class MainActivity : ComponentActivity() {
 
     // O launcher DEVE ser declarado aqui no topo
-    private val requestPermissionLauncher = registerForActivityResult(
+    val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) { /* Notificação autorizada */ }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    fun askNotificationPermission() {
+        if (!hasNotificationPermission()) {
+            requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -75,14 +82,6 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
-        }
-    }
-
-    // 3. Chame quando necessário (ex: clique de um botão)
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    private fun askNotificationPermission() {
-        if (!hasNotificationPermission()) {
-            requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 }

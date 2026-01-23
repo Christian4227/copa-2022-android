@@ -1,13 +1,20 @@
 package me.dio.copa.catar.data.worker
 
 import android.Manifest
+import android.app.NotificationManager
 import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
+import androidx.core.content.ContextCompat
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import me.dio.copa.catar.MainActivity
+import me.dio.copa.catar.extensions.hasNotificationPermission
 import me.dio.copa.catar.extensions.showFootballNotifications
 import java.util.concurrent.TimeUnit
 
@@ -25,6 +32,8 @@ class NotificationWorker(context: Context, workerParams: WorkerParameters) :
         private const val WORKER_NAME = "notification_worker_tag"
 
         fun start(context: Context) {
+            val workManager = WorkManager.getInstance(context)
+
             val request = OneTimeWorkRequestBuilder<NotificationWorker>()
                 .setInitialDelay(2, TimeUnit.MINUTES) // Exemplo: atraso inicial
                 .build()
