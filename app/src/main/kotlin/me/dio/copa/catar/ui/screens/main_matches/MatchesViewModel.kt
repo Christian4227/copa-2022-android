@@ -1,14 +1,17 @@
 package me.dio.copa.catar.ui.screens.main_matches
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import me.dio.copa.catar.data.worker.NotificationWorker
 import me.dio.copa.catar.domain.model.Match
 import me.dio.copa.catar.domain.repositories.MatchesRepository
 import java.time.Instant
@@ -18,6 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MatchesViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val repository: MatchesRepository
 ) : ViewModel() {
 
@@ -62,8 +66,10 @@ class MatchesViewModel @Inject constructor(
         viewModelScope.launch {
             if (match.notificationEnabled) {
                 repository.disableNotificationFor(match.id)
+                NotificationWorker.stop(context, match)
             } else {
                 repository.enableNotificationFor(match.id)
+                NotificationWorker.start(context, match)
             }
         }
     }

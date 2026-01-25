@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
@@ -64,6 +63,7 @@ import me.dio.copa.catar.domain.model.Match
 import me.dio.copa.catar.ui.components.headers.HeaderPages
 import me.dio.copa.catar.ui.theme.Copa2022Theme
 import me.dio.copa.catar.ui.theme.PrimaryColor
+import me.dio.copa.catar.ui.theme.SwitchDisabled
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -82,7 +82,7 @@ fun MatchesScreen(viewModel: MatchesViewModel = hiltViewModel()) {
         Surface(
             modifier = Modifier
                 .fillMaxSize(),
-            color = Color.Transparent
+            color = MaterialTheme.colorScheme.background
         ) {
             Column(
                 modifier = Modifier
@@ -166,7 +166,7 @@ fun MatchesScreen(viewModel: MatchesViewModel = hiltViewModel()) {
                                 style = TextStyle(
                                     fontSize = 14.sp,
                                     fontFamily = FontFamily(Font(R.font.tomorrow_bold)),
-                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    color = Color.White,
                                     textAlign = TextAlign.Center
                                 )
                             )
@@ -190,7 +190,9 @@ fun MatchesScreen(viewModel: MatchesViewModel = hiltViewModel()) {
                                     )
                                 } else {
                                     matches.forEach { match ->
-                                        MatchItem(match)
+                                        MatchItem(match) {
+                                            viewModel.toggleNotification(match)
+                                        }
                                     }
                                 }
                             }
@@ -207,7 +209,7 @@ fun MatchesScreen(viewModel: MatchesViewModel = hiltViewModel()) {
 }
 
 @Composable
-fun MatchItem(match: Match) {
+fun MatchItem(match: Match, onNotificationClick: () -> Unit) {
     val stadiumImage = when {
         match.stadium.name.contains("LUSAIL", ignoreCase = true) -> R.drawable.lusali_stadium
         match.stadium.name.contains("974", ignoreCase = true) -> R.drawable.estadio_974
@@ -221,17 +223,41 @@ fun MatchItem(match: Match) {
             .border(1.dp, Color.LightGray, RoundedCornerShape(8.dp))
             .padding(8.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.Top,
     ) {
-        Image(
-            painter = painterResource(id = stadiumImage),
-            contentDescription = "stadium image",
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .width(140.dp) // Aproximadamente 40% da largura padrão
-                .height(100.dp)
-                .clip(RoundedCornerShape(8.dp))
-        )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Image(
+                painter = painterResource(id = stadiumImage),
+                contentDescription = "stadium image",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .width(140.dp)
+                    .height(100.dp)
+                    .clip(RoundedCornerShape(8.dp))
+            )
+
+            Button(
+                onClick = onNotificationClick,
+                modifier = Modifier.width(140.dp),
+                shape = RoundedCornerShape(8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (match.notificationEnabled) PrimaryColor else SwitchDisabled
+                ),
+                contentPadding = PaddingValues(0.dp)
+            ) {
+                Icon(
+                    imageVector = if (match.notificationEnabled)
+                        ImageVector.vectorResource(id = R.drawable.ic_notifications_active)
+                    else ImageVector.vectorResource(id = R.drawable.ic_notifications),
+                    contentDescription = "Notification",
+                    tint = Color.White
+                )
+            }
+        }
+
         Column(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(8.dp),

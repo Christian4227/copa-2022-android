@@ -53,14 +53,12 @@ fun SettingsScreen(onBackClick: () -> Unit) {
         mutableStateOf(context.hasNotificationPermission())
     }
 
-    // 1. Definimos o Launcher para pedir permissão no Compose
+    // Launcher para pedir permissão
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         notificationsEnabled = isGranted
-        if (isGranted) {
-            NotificationWorker.start(context)
-        } else {
+        if (!isGranted) {
             Toast.makeText(
                 context,
                 R.string.text_conf_notification_permission_denied,
@@ -123,16 +121,13 @@ fun SettingsScreen(onBackClick: () -> Unit) {
                             checked = notificationsEnabled,
                             onCheckedChange = { isEnabled ->
                                 if (isEnabled) {
-                                    // 2. Se for Android 13+ e não tiver permissão, solicita
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !context.hasNotificationPermission()) {
                                         permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                                     } else {
                                         notificationsEnabled = true
-                                        NotificationWorker.start(context)
                                     }
                                 } else {
                                     notificationsEnabled = false
-                                    NotificationWorker.stop(context)
                                 }
                             }
                         )

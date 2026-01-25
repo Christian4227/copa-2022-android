@@ -13,7 +13,6 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import me.dio.copa.catar.R
 
-private const val NOTIFICATION_ID = 1
 private const val CHANNEL_ID = "new_channel_video"
 
 fun Context.hasNotificationPermission(): Boolean {
@@ -27,20 +26,20 @@ fun Context.hasNotificationPermission(): Boolean {
 }
 
 @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
-fun Context.showFootballNotifications() {
-    showNotification()
+fun Context.showFootballNotifications(title: String, content: String) {
+    showNotification(title, content)
 }
 
 @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
-private fun Context.showNotification() {
+private fun Context.showNotification(title: String, content: String) {
     createNotificationChannel()
 
-    val notification = getNotification()
+    val notification = getNotification(title, content)
 
     NotificationManagerCompat
         .from(this)
         .notify(
-            NOTIFICATION_ID,
+            content.hashCode(),
             notification
         )
 }
@@ -55,12 +54,12 @@ private fun Context.createNotificationChannel() {
 
 }
 
-private fun Context.getNotification(): Notification {
+private fun Context.getNotification(title: String, content: String): Notification {
     val notification = NotificationCompat
         .Builder(this, CHANNEL_ID)
         .setSmallIcon(R.drawable.iv_logo_catar_2022)
-        .setContentTitle("Copa 2022")
-        .setContentText("Acompanhe os jogos do Brasil!")
+        .setContentTitle(title)
+        .setContentText(content)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
         .setCategory(NotificationCompat.CATEGORY_RECOMMENDATION)
         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
