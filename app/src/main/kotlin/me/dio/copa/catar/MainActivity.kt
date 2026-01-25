@@ -7,16 +7,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,9 +21,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import me.dio.copa.catar.extensions.hasNotificationPermission
-import me.dio.copa.catar.ui.components.headers.Header
-import me.dio.copa.catar.ui.theme.Copa2022Theme
+import me.dio.copa.catar.ui.screens.main.MainScreen
 import me.dio.copa.catar.ui.screens.settings.Settings
+import me.dio.copa.catar.ui.theme.Copa2022Theme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -70,7 +65,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     NavHost(navController, startDestination = "main") {
                         composable("main") {
-                            Home(
+                            MainScreen(
                                 onSettingsClick = { navController.navigate("settings") }
                             )
                         }
@@ -87,25 +82,10 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Home(onSettingsClick: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .padding(0.dp),
-        verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.Top),
-        horizontalAlignment = Alignment.Start,
-    ) {
-        // O clique no Header agora aciona a rota definida no NavHost
-        Header(onSettingsClick = onSettingsClick)
-    }
-}
-
-@Composable
 @Preview(showBackground = true)
 fun DefaultPreview() {
     Copa2022Theme {
-        Home(onSettingsClick = {})
+        MainScreen(onSettingsClick = {})
     }
 }
 

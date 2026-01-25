@@ -58,7 +58,8 @@ fun Header(onSettingsClick: () -> Unit) {
                         contentScale = ContentScale.FillBounds
                     )
                     Text(
-                        text = "2022", style = TextStyle(
+                        text = "2022",
+                        style = TextStyle(
                             fontSize = 24.sp,
                             fontFamily = FontFamily(Font(R.font.tomorrow_bold)),
                             color = colorResource(R.color.primary_color_2),
