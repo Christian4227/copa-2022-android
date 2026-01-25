@@ -35,9 +35,7 @@ import me.dio.copa.catar.ui.theme.PrimaryColor
 
 @Composable
 fun MainScreen(
-    onSettingsClick: () -> Unit,
-    onMatchesClick: () -> Unit,
-    onCountriesClick: () -> Unit
+    viewModel: MainViewModel
 ) {
     Copa2022Theme(darkTheme = false) {
         Surface(
@@ -49,7 +47,7 @@ fun MainScreen(
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState())
             ) {
-                Header(onSettingsClick = onSettingsClick)
+                Header(onSettingsClick = viewModel::onSettingsClick)
                 Image(
                     painter = painterResource(id = R.drawable.iv_banner_copa_2022),
                     modifier = Modifier.fillMaxWidth(),
@@ -64,7 +62,7 @@ fun MainScreen(
                 ) {
                     // Botão Matches
                     Button(
-                        onClick = { onMatchesClick() },
+                        onClick = viewModel::onMatchesClick,
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(5.dp),
                         colors = ButtonDefaults.buttonColors(backgroundColor = PrimaryColor),
@@ -84,7 +82,7 @@ fun MainScreen(
 
                     // Botão Countries (Redireciona)
                     Button(
-                        onClick = onCountriesClick,
+                        onClick = viewModel::onCountriesClick,
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(5.dp),
                         colors = ButtonDefaults.buttonColors(backgroundColor = PrimaryColor),
@@ -105,14 +103,4 @@ fun MainScreen(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun MainScreenPreview() {
-    MainScreen(
-        onSettingsClick = {},
-        onMatchesClick = {},
-        onCountriesClick = {}
-    )
 }

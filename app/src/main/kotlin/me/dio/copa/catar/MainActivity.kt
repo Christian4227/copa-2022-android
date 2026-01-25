@@ -11,17 +11,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import me.dio.copa.catar.extensions.hasNotificationPermission
 import me.dio.copa.catar.ui.screens.main.MainScreen
+import me.dio.copa.catar.ui.screens.main.MainUiEvent
+import me.dio.copa.catar.ui.screens.main.MainViewModel
 import me.dio.copa.catar.ui.screens.main_countries.CountriesScreen
 import me.dio.copa.catar.ui.screens.main_matches.MatchesScreen
 import me.dio.copa.catar.ui.screens.settings.SettingsScreen
@@ -54,6 +56,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
+            val mainViewModel: MainViewModel = hiltViewModel()
+
+            LaunchedEffect(Unit) {
+                mainViewModel.uiEvent.collect { event ->
+                    when (event) {
+                        MainUiEvent.NavigateToSettings -> navController.navigate("settings")
+                        MainUiEvent.NavigateToMatches -> navController.navigate("main/matches")
+                        MainUiEvent.NavigateToCountries -> navController.navigate("main/countries")
+                    }
+                }
+            }
+
             Copa2022Theme(
                 darkTheme = false
             ) {
@@ -65,11 +79,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     NavHost(navController, startDestination = "main") {
                         composable("main") {
-                            MainScreen(
-                                onSettingsClick = { navController.navigate("settings") },
-                                onMatchesClick = { navController.navigate("main/matches") },
-                                onCountriesClick = { navController.navigate("main/countries") }
-                            )
+                            MainScreen(viewModel = mainViewModel)
                         }
                         composable("main/countries") {
                             CountriesScreen()
@@ -86,17 +96,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun DefaultPreview() {
-    Copa2022Theme {
-        MainScreen(
-            onSettingsClick = {},
-            onMatchesClick = {},
-            onCountriesClick = {}
-        )
     }
 }
