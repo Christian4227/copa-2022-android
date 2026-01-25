@@ -2,13 +2,16 @@ package me.dio.copa.catar.ui.screens.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -31,15 +34,20 @@ import me.dio.copa.catar.ui.theme.Copa2022Theme
 import me.dio.copa.catar.ui.theme.PrimaryColor
 
 @Composable
-fun MainScreen(onSettingsClick: () -> Unit) {
-    Copa2022Theme(
-        darkTheme = false
-    ) {
+fun MainScreen(
+    onSettingsClick: () -> Unit,
+    onCountriesClick: () -> Unit
+) {
+    Copa2022Theme(darkTheme = false) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            Column(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+            ) {
                 Header(onSettingsClick = onSettingsClick)
                 Image(
                     painter = painterResource(id = R.drawable.iv_banner_copa_2022),
@@ -50,19 +58,16 @@ fun MainScreen(onSettingsClick: () -> Unit) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 12.dp, top = 32.dp, end = 12.dp, bottom = 32.dp),
+                        .padding(horizontal = 12.dp, vertical = 32.dp),
                     verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.Top),
                 ) {
+                    // Botão Matches
                     Row(
                         Modifier
                             .fillMaxWidth()
-                            .background(
-                                color = PrimaryColor,
-                                shape = RoundedCornerShape(size = 5.dp)
-                            )
-                            .padding(start = 12.dp, top = 16.dp, end = 12.dp, bottom = 16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start),
-                        verticalAlignment = Alignment.Top,
+                            .background(color = PrimaryColor, shape = RoundedCornerShape(5.dp))
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         Text(
                             text = stringResource(R.string.text_cup_matches),
@@ -73,16 +78,15 @@ fun MainScreen(onSettingsClick: () -> Unit) {
                             )
                         )
                     }
+                    
+                    // Botão Countries (Redireciona)
                     Row(
                         Modifier
                             .fillMaxWidth()
-                            .background(
-                                color = PrimaryColor,
-                                shape = RoundedCornerShape(size = 5.dp)
-                            )
-                            .padding(start = 12.dp, top = 16.dp, end = 12.dp, bottom = 16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start),
-                        verticalAlignment = Alignment.Top,
+                            .background(color = PrimaryColor, shape = RoundedCornerShape(5.dp))
+                            .clickable { onCountriesClick() } // Corrigido: lambda adicionada
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         Text(
                             text = stringResource(R.string.text_cup_countries),
@@ -102,5 +106,5 @@ fun MainScreen(onSettingsClick: () -> Unit) {
 @Preview
 @Composable
 fun MainScreenPreview() {
-    MainScreen(onSettingsClick = {})
+    MainScreen(onSettingsClick = {}, onCountriesClick = {})
 }

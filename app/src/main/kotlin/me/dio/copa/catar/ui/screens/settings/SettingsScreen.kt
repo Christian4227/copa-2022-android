@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -43,7 +45,7 @@ import me.dio.copa.catar.ui.components.switches.CustomSwitch
 import me.dio.copa.catar.ui.theme.Copa2022Theme
 
 @Composable
-fun Settings(onBackClick: () -> Unit) {
+fun SettingsScreen(onBackClick: () -> Unit) {
     val context = LocalContext.current
 
     // Estado que controla se o switch visualmente está ligado
@@ -72,7 +74,9 @@ fun Settings(onBackClick: () -> Unit) {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            Column(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())) {
                 HeaderPages(stringResource(R.string.text_settings))
 
                 // Botão de Voltar
@@ -149,6 +153,6 @@ fun Settings(onBackClick: () -> Unit) {
 
 @Preview
 @Composable
-fun SettingsPreview() {
-    Settings(onBackClick = {})
+fun SettingsScreenPreview() {
+    SettingsScreen(onBackClick = {})
 }

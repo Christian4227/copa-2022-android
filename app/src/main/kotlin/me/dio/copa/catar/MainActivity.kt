@@ -22,21 +22,21 @@ import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import me.dio.copa.catar.extensions.hasNotificationPermission
 import me.dio.copa.catar.ui.screens.main.MainScreen
-import me.dio.copa.catar.ui.screens.settings.Settings
+import me.dio.copa.catar.ui.screens.main_countries.CountriesScreen
+import me.dio.copa.catar.ui.screens.settings.SettingsScreen
 import me.dio.copa.catar.ui.theme.Copa2022Theme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    // O launcher DEVE ser declarado aqui no topo
-    val requestPermissionLauncher = registerForActivityResult(
+    private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) { /* Notificação autorizada */ }
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    fun askNotificationPermission() {
+    private fun askNotificationPermission() {
         if (!hasNotificationPermission()) {
             requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
         }
@@ -56,7 +56,6 @@ class MainActivity : ComponentActivity() {
             Copa2022Theme(
                 darkTheme = false
             ) {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier
                         .fillMaxSize()
@@ -66,11 +65,15 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController, startDestination = "main") {
                         composable("main") {
                             MainScreen(
-                                onSettingsClick = { navController.navigate("settings") }
+                                onSettingsClick = { navController.navigate("settings") },
+                                onCountriesClick = { navController.navigate("main/countries") }
                             )
                         }
+                        composable("main/countries") {
+                            CountriesScreen()
+                        }
                         composable("settings") {
-                            Settings(
+                            SettingsScreen (
                                 onBackClick = { navController.popBackStack() }
                             )
                         }
@@ -85,7 +88,9 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 fun DefaultPreview() {
     Copa2022Theme {
-        MainScreen(onSettingsClick = {})
+        MainScreen(
+            onSettingsClick = {},
+            onCountriesClick = {}
+        )
     }
 }
-
