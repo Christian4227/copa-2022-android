@@ -7,6 +7,8 @@
     <string name="back_button">Voltar</string>
     <string name="text_settings">Configurações</string>
     <string name="text_matches">Partidas</string>
+    <string name="text_search_matches">Buscar partidas</string>
+    <string name="text_stadium">Estádio</string>
     <string name="text_countries">Países</string>
     <string name="text_qatar">Catar</string>
     <string name="text_germany">Alemanha</string>
@@ -47,4 +49,6 @@
     <string name="text_host_country">País sede</string>
     <string name="text_other_teams">Demais seleções</string>
     <string name="text_conf_notification_permission_denied">Abra as configurações para habilitar as notificações</string>
+    <string name="text_initial_date">Data inicial</string>
+    <string name="text_final_date">Data final</string>
 </resources>

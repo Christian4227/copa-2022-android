@@ -1,17 +1,17 @@
 package me.dio.copa.catar.ui.screens.main
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -36,6 +36,7 @@ import me.dio.copa.catar.ui.theme.PrimaryColor
 @Composable
 fun MainScreen(
     onSettingsClick: () -> Unit,
+    onMatchesClick: () -> Unit,
     onCountriesClick: () -> Unit
 ) {
     Copa2022Theme(darkTheme = false) {
@@ -62,15 +63,17 @@ fun MainScreen(
                     verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.Top),
                 ) {
                     // Botão Matches
-                    Row(
-                        Modifier
-                            .fillMaxWidth()
-                            .background(color = PrimaryColor, shape = RoundedCornerShape(5.dp))
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    Button(
+                        onClick = { onMatchesClick() },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(5.dp),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = PrimaryColor),
+                        contentPadding = PaddingValues(16.dp),
+                        elevation = ButtonDefaults.elevation(0.dp, 0.dp, 0.dp, 0.dp, 0.dp)
                     ) {
                         Text(
                             text = stringResource(R.string.text_cup_matches),
+                            modifier = Modifier.fillMaxWidth(),
                             style = TextStyle(
                                 fontSize = 24.sp,
                                 fontFamily = FontFamily(Font(R.font.tomorrow_bold)),
@@ -78,18 +81,19 @@ fun MainScreen(
                             )
                         )
                     }
-                    
+
                     // Botão Countries (Redireciona)
-                    Row(
-                        Modifier
-                            .fillMaxWidth()
-                            .background(color = PrimaryColor, shape = RoundedCornerShape(5.dp))
-                            .clickable { onCountriesClick() } // Corrigido: lambda adicionada
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    Button(
+                        onClick = onCountriesClick,
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(5.dp),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = PrimaryColor),
+                        contentPadding = PaddingValues(16.dp),
+                        elevation = ButtonDefaults.elevation(0.dp, 0.dp, 0.dp, 0.dp, 0.dp)
                     ) {
                         Text(
                             text = stringResource(R.string.text_cup_countries),
+                            modifier = Modifier.fillMaxWidth(),
                             style = TextStyle(
                                 fontSize = 24.sp,
                                 fontFamily = FontFamily(Font(R.font.tomorrow_bold)),
@@ -106,5 +110,9 @@ fun MainScreen(
 @Preview
 @Composable
 fun MainScreenPreview() {
-    MainScreen(onSettingsClick = {}, onCountriesClick = {})
+    MainScreen(
+        onSettingsClick = {},
+        onMatchesClick = {},
+        onCountriesClick = {}
+    )
 }

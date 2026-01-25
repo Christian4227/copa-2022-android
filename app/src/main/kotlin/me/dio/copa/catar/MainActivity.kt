@@ -23,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import me.dio.copa.catar.extensions.hasNotificationPermission
 import me.dio.copa.catar.ui.screens.main.MainScreen
 import me.dio.copa.catar.ui.screens.main_countries.CountriesScreen
+import me.dio.copa.catar.ui.screens.main_matches.MatchesScreen
 import me.dio.copa.catar.ui.screens.settings.SettingsScreen
 import me.dio.copa.catar.ui.theme.Copa2022Theme
 
@@ -66,11 +67,15 @@ class MainActivity : ComponentActivity() {
                         composable("main") {
                             MainScreen(
                                 onSettingsClick = { navController.navigate("settings") },
+                                onMatchesClick = { navController.navigate("main/matches") },
                                 onCountriesClick = { navController.navigate("main/countries") }
                             )
                         }
                         composable("main/countries") {
                             CountriesScreen()
+                        }
+                        composable("main/matches") {
+                            MatchesScreen()
                         }
                         composable("settings") {
                             SettingsScreen (
@@ -90,6 +95,7 @@ fun DefaultPreview() {
     Copa2022Theme {
         MainScreen(
             onSettingsClick = {},
+            onMatchesClick = {},
             onCountriesClick = {}
         )
     }

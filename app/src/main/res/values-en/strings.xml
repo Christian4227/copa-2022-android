@@ -5,6 +5,10 @@
     <string name="final_date_cq">december 18</string>
     <string name="text_settings">Settings</string>
     <string name="text_matches">Matches</string>
+    <string name="text_search_matches">Search matches</string>
+    <string name="text_stadium">Stadium</string>
+    <string name="text_initial_date">Initial date</string>
+    <string name="text_final_date">Final date</string>
     <string name="text_countries">Countries</string>
     <string name="logo_copa_2022">2022 World Cup logo</string>
     <string name="banner_world_cup_2022">2022 World Cup Banner</string>
